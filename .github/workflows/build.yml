@@ -1,0 +1,26 @@
+name: Go Build Windows
+
+# This triggers the script every time you push code to the main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-level: ubuntu-latest
+    steps:
+     name: Check out repository code
+    uses: actions/checkout@v4
+
+    name: Set up Go environment
+    uses: actions/setup-go@v5
+    with:
+        go-version: '1.22' # Replace with your Go version
+
+     name: Build for Windows
+    run: go build -v -o myapp.exe
+    env:
+        GOOS: windows
+        GOARCH: amd64
