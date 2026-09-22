@@ -1,6 +1,7 @@
 name: Go Build Windows
 
 on:
+workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
@@ -23,4 +24,6 @@ jobs:
       env:
         GOOS: windows
         GOARCH: amd64
+
+        
 
