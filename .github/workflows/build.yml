@@ -24,6 +24,18 @@ jobs:
       env:
         GOOS: windows
         GOARCH: amd64
+    - name: Build for Windows
+      run: go build -v -o myapp.exe
+      env:
+        GOOS: windows
+        GOARCH: amd64
+
+    - name: Upload Windows Executable
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-executable
+        path: "**/*.exe"  # Updated to look globally for the .exe file
+
 
         
 
