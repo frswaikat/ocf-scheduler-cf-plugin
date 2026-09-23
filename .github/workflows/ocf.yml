@@ -1,0 +1,35 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go Build Windows
+
+on:
+  push:
+    branches: [ "main" ]  # Triggers automatically on your main branch
+  pull_request:
+    branches: [ "main" ]  # Triggers automatically for PRs targeting main
+  workflow_dispatch:      # Keeps the manual run button active
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Go environment
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    - name: Build for Windows with Version Flags
+      run: go build -v -ldflags="-X main.Version=1.0.0" -o myapp.exe
+      env:
+        GOOS: windows
+        GOARCH: amd64
+
+    - name: Upload Windows Executable
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-executable
+        path: "**/*.exe"
